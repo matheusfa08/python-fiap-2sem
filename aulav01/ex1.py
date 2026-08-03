@@ -1,0 +1,5 @@
+import json
+
+produtos = []
+estoque = []
+
