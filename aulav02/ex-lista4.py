@@ -1,4 +1,6 @@
 #Transformando o ex3 em um menu interativo.
+
+#Dados, aqui na variável 'dados', são definidos como uma string de múltiplas linhas, assim como definido pelas três aspas (""")
 dados = """ 
 ana@gmail.com;Notebook;4500;SP 
 carlos@gmail.com;Mouse;80;RJ 
@@ -9,27 +11,55 @@ joao@gmail.com;Notebook;4500;PR
 maria@gmail.com;Mouse;80;MG 
 """ 
 
+#Vamos filtar a 'dados' para a 'dado', tirando os espaços desnecessários com o .strip()
 dado = dados.strip()
+
+#E agora, vamos separar as linhas dessa string numa lista, a 'linhas, assim podemos separar melhor cada campo, melhorando a classificação
 linhas = dado.splitlines()
 
+#Criada a lista 'registros' para armazenar cada campo existente, como exemplo: id, contato, nome. Então a 'registros' desse exemplo seria registros = [id, contato, nome] 
 registros = []
+
+#Criada a lista 'preços', que irá armazenar o campo referente ao preço gasto com os produtos deste exercício
 precos = []
 
+#Feita uma linha de repetição com for in, para cada item em 'linhas'
 for linha in linhas:
+
+    #'campos' vai receber cada campo de informação separadamente, com .split(";"), que vai separar a string em outras strings menores fazendo a deleção do caractér ;
     campos = linha.split(";")
+
+    #'email', 'produto', 'preco' e 'estado' recebem os campos respectivos à suas posições na lista 'campos', e sem espaços extras, nem letras maiúsculas (Exceto 'preco' e 
+    #'estado'), com os .strip() e .lower(). 'preco' recebe um valor flutuante, que aceita casas decimais e apenas números, com o campo estando dentro do float()
     email = campos[0].strip().lower()
     produto = campos[1].strip().lower()
     preco = float(campos[2].strip())
     estado = campos[3].strip()
+
+    #É criada uma lista 'registro' que guarda todos os campos de uma linha. Essa lista entra como um item na lista 'registros' com o .append()
     registro = [email, produto, preco, estado]
     registros.append(registro)
+
+    #O 'preco' do produto é guardado na lista 'precos' com o .append()
     precos.append(preco)
 
+#É criada a função que futuramente poderá ser chamada, a exibir_pedidos(), onde... o nome é autoexplanatório
 def exibir_pedidos():
-    for registro in registros:
-        print("\nCliente:", registro[0], "|Produto:", registro[1], "|Valor: R$", registro[2], "|Estado:", registro[3])
 
+    #Uma repetição for in. Para cada item em registros, ele imprimira uma mensagem que evidenciará o email do cliente, o produto que ele comprou, o valor da compra, e o
+    #estado onde foi realizada a compra
+    for registro in registros:
+        print("Cliente:", registro[0], "|Produto:", registro[1], "|Valor: R$", registro[2], "|Estado:", registro[3])
+
+#É criada a função que futuramente poderá ser chamada, a exibir_analises_financeiras(), onde o sistema fará cálculos e exibirá infomações que serão importantes na análise
+#dos dados
 def exibir_analises_financeiras():
+
+    #Análises mais simples, feitas: 
+    #   1º - lendo a quantidades de itens na lista, com len(), para retornar o total de pedidos;
+    #   2º - somando os itens numéricos na lista, e retornando o faturamento total;
+    #   3º - calculando a média e verificando qual o menor e maior preço, com auxílio da min() e max(), para pegar o menor e maior valor numérico da lista e os dividindo 
+    #por 2;
     print("\nAnálises dos pedidos cadastrados:")
     print("\nTotal de pedidos:", len(registros), "Pedidos")
     print("Faturamento total: R$", sum(precos))
@@ -38,6 +68,8 @@ def exibir_analises_financeiras():
     print("Maior venda: R$", max(precos))
     print("Menor venda: R$", min(precos))
     print("\nAnálises adicionais")
+
+    
     produtos = []
     for registro in registros:
         produtos.append(registro[1])
