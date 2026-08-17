@@ -1,3 +1,4 @@
+#explicações e correções no /ex-lista4.py
 dados = """
 ana@gmail.com;Notebook;4500;SP
 carlos@gmail.com;Mouse;80;RJ
