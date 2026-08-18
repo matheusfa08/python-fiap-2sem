@@ -1,9 +1,11 @@
 # **2º SEMESTRE - FIAP - PYTHON** 🐍
-### Já aprendemos no sem. passado:
+## Já aprendemos no sem. passado:
 - Condições
 - Repetições
 - Listas
 - Funções
-___
-### Neste sem. aprendemos:
-- Nada... Ainda
+
+## Neste sem. aprendemos:
+- Tuplas
+- Dicionários
+- ... e muito mais
