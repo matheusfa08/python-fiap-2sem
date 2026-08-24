@@ -45,7 +45,6 @@ def listar_produto():
 
 
 #Criando a função de cadastrar produto
-
 def cadastrar_produto():
     print("\n================CADASTRO DE PRODUTOS==================")
     try:

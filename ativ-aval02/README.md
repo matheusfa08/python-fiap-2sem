@@ -1,0 +1,207 @@
+# Atividade Avaliativa - CRUD - Python 🐍
+
+## 👤Integrantes:
+- Matheus Ferreira Antônio
+- João Vitor Cruz de Lima
+
+## 📄RM:
+- 570933
+- 571277
+
+Uma pequena loja deseja informatizar o controle de seus produtos. Atualmente, os dados são registrados manualmente, dificultando o cadastro, a consulta, a alteração e a exclusão das informações. 
+
+ 
+
+Você foi contratado(a) para desenvolver um sistema simples de gerenciamento de produtos utilizando Python. 
+
+ 
+
+O sistema deverá armazenar os produtos em uma lista, sendo que cada produto deverá ser representado por um dicionário. 
+
+ 
+
+Cada produto deverá possuir as seguintes informações: 
+
+ 
+
+ID; 
+
+Nome; 
+
+Categoria; 
+
+Preço; 
+
+Quantidade em estoque. 
+
+Exemplo de um produto 
+
+{ 
+
+    "id": 1, 
+
+    "nome": "Notebook", 
+
+    "categoria": "Informática", 
+
+    "preco": 3500.00, 
+
+    "estoque": 5 
+
+} 
+
+O sistema deverá permitir: 
+
+1. Cadastrar produto – CREATE 
+
+ 
+
+Solicitar ao usuário os dados do produto e armazená-lo na lista. 
+
+ 
+
+O sistema deverá verificar se o ID informado já está cadastrado. Não será permitido cadastrar dois produtos com o mesmo ID. 
+
+ 
+
+2. Listar produtos – READ 
+
+ 
+
+Apresentar na tela todos os produtos cadastrados, mostrando todas as suas informações. 
+
+ 
+
+Caso não existam produtos cadastrados, o sistema deverá informar ao usuário. 
+
+ 
+
+3. Consultar produto – READ 
+
+ 
+
+Solicitar o ID de um produto e apresentar suas informações. 
+
+ 
+
+Caso o ID não seja encontrado, deverá ser exibida uma mensagem informando que o produto não existe. 
+
+ 
+
+4. Alterar produto – UPDATE 
+
+ 
+
+Solicitar o ID do produto que será alterado. 
+
+ 
+
+Caso o produto exista, permitir a alteração de: 
+
+ 
+
+Nome; 
+
+Categoria; 
+
+Preço; 
+
+Estoque. 
+
+ 
+
+O ID do produto não deverá ser alterado. 
+
+ 
+
+5. Excluir produto – DELETE 
+
+ 
+
+Solicitar o ID do produto que será excluído. 
+
+ 
+
+Antes de realizar a exclusão, o sistema deverá solicitar uma confirmação ao usuário. 
+
+ 
+
+Caso o produto não exista, deverá apresentar uma mensagem informativa. 
+
+ 
+
+6. Encerrar o programa 
+
+ 
+
+O sistema deverá continuar funcionando e apresentando o menu até que o usuário escolha a opção para sair. 
+
+ 
+
+Requisitos obrigatórios 
+
+ 
+
+Para desenvolver o sistema, você deverá: 
+
+ 
+
+Utilizar uma lista para armazenar os produtos. 
+
+Utilizar dicionários para representar cada produto. 
+
+Utilizar funções para organizar as operações do sistema. 
+
+Utilizar estruturas de decisão (if, elif, else). 
+
+Utilizar estruturas de repetição. 
+
+Criar um menu de opções para interação com o usuário. 
+
+Tratar situações como: 
+
+ID inexistente; 
+
+ID duplicado; 
+
+lista vazia; 
+
+confirmação de exclusão. 
+
+Organizar o código utilizando indentação adequada e nomes de variáveis que facilitem sua compreensão. 
+
+Menu sugerido 
+
+================================= 
+
+     SISTEMA DE PRODUTOS 
+
+================================= 
+
+ 
+
+1 - Cadastrar produto 
+
+2 - Listar produtos 
+
+3 - Consultar produto 
+
+4 - Alterar produto 
+
+5 - Excluir produto 
+
+6 - Sair 
+
+ 
+
+Escolha uma opção: 
+
+Atenção 
+
+ 
+
+O objetivo desta atividade é avaliar sua compreensão sobre listas, dicionários, funções, estruturas de decisão, estruturas de repetição e operações CRUD. 
+
+ 
+
+O código deverá ser desenvolvido por você. Durante a avaliação, você poderá ser solicitado(a) a explicar o funcionamento de partes do seu programa ou realizar pequenas alterações no código
