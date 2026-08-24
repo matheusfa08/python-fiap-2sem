@@ -7,147 +7,197 @@ ids = []
 #Vamos fazer o CRUD
 #Começando pelo CREATE, vamos fazer uma função
 def cadastrar_produto():
-    print("\n======CADASTRO======")
+    while True:
+        print("\n======CADASTRO======")
 
-    #Criamos a variável id, que recebe um número inteiro definido pelo usuário. Se ele não for um número inteiro, e se ele for vazio, eles exibem mensagem de erro
-    id = int(input("Digite o número de identificação o produto que deseja cadastrar: ").strip())
-    if id in ids:
-        print("------------------------------")
-        print(f"⚠️ ID não pode ser repetido: {ids} ⚠️")
-        print("------------------------------")
-        return
+        #Criamos a variável id, que tenta receber um número inteiro definido pelo usuário. Se ele não for um número inteiro, e se ele for vazio, eles exibem mensagem de erro. Ao mesmo tempo, se o id estiver na lista de ids, ele mostra uma mensagem de erro e mostra os ids já registrados
+        try:
+            id = int(input("Digite o número de identificação do produto que deseja cadastrar:\n-> ").strip())
+            if id in ids:
+                print("------------------------------")
+                print(f"⚠️ ID não pode ser repetido: {ids} ⚠️")
+                continue
+        except ValueError:
+                print("------------------------------")
+                print("⚠️ ID tem que ser um valor numérico inteiro ⚠️")
+                continue
 
-    #Criamos a variável nome, que recebe uma String definida pelo usuário que terá seus espaços vazios retirados e tudo em minúsculo, por conta do .strip() e .lower(). Se ele for vazio, retorna mesagem de erro
-    nome = input("Digite o nome do produto que deseja cadastrar: ").strip().lower()
-    if nome == "":
-        print("------------------------------")
-        print("⚠️ Nome não pode ser vazio ⚠️")
-        print("------------------------------")
-        return
-    
-    #Criamos a variável categoria, que recebe uma String definida pelo usuário que terá seus espaços vazios retirados e tudo em minúsculo, por conta do .strip() e .lower(). Se ele for vazio, retorna mesagem de erro
-    categoria = input("Digite a categoria do produto que deseja cadastrar: ").strip().lower()
-    if categoria == "":
-        print("------------------------------")
-        print("⚠️ Categoria não pode ser vazio ⚠️")
-        print("------------------------------")
-        return
+        #Criamos a variável nome, que recebe uma String definida pelo usuário que terá seus espaços vazios retirados e tudo em minúsculo, por conta do .strip() e .lower(). Se ele for vazio, retorna mesagem de erro
+        nome = input("Digite o nome do produto que deseja cadastrar:\n-> ").strip().lower()
+        if nome == "":
+            print("------------------------------")
+            print("⚠️ Nome não pode ser vazio ⚠️")
+            continue
+        
+        #Criamos a variável categoria, que recebe uma String definida pelo usuário que terá seus espaços vazios retirados e tudo em minúsculo, por conta do .strip() e .lower(). Se ele for vazio, retorna mesagem de erro
+        categoria = input("Digite a categoria do produto que deseja cadastrar:\n-> ").strip().lower()
+        if categoria == "":
+            print("------------------------------")
+            print("⚠️ Categoria não pode ser vazio ⚠️")
+            continue
 
-    #Criamos a variável preco, que recebe uma String d
-    preco = input("Digite o preço do produto que deseja cadastrar: ").strip().replace(",", ".")
-    if preco == "":
+        #Criamos a variável preco, que recebe uma float (Pode se digitar esse valor com ',' ao invés de '.') e se ele for menor ou igual a zero, ele vai exibir uma mensagem de erro. E se ele receber um texto decorrido, ele vai dar uma mensagem de erro
+        try:
+            preco = float(input("Digite o preço do produto que deseja cadastrar:\n-> ").strip().replace(",", "."))
+            if preco <= 0:
+                print("------------------------------")
+                print("⚠️ Preço inválido. Ele não pode ser menor ou igual a 0 ⚠️")
+                continue
+        except ValueError:
+            print("------------------------------")
+            print("⚠️ Preço inválido. O preço deve ser numérico ⚠️")
+            continue
+
+        #Criamos a variável estoque, que tenta receber um número inteiro definido pelo usuário. Se ele não for um número inteiro, e se ele for vazio, eles exibem mensagem de erro. Caso ele seja menos que zero, ele também exibe uma mensagem de erro
+        try:
+            estoque = int(input("Digite o estoque do produto que deseja cadastrar:\n-> ").strip())
+            if estoque < 0:
+                print("------------------------------")
+                print("⚠️ Estoque inválido. Ele não pode ser menor que 0 ⚠️")
+                continue
+        except ValueError:
+            print("------------------------------")
+            print("⚠️ Estoque tem que ser um valor numérico inteiro ⚠️")
+            continue
+
+        novo_produto = {
+            "id": id,
+            "nome": nome,
+            "categoria": categoria,
+            "preço": preco,
+            "estoque": estoque
+        }
+
+        produtos.append(novo_produto)
+        ids.append(id)
         print("------------------------------")
-        print("⚠️ Preço não pode ser vazio ⚠️")
-        print("------------------------------")
-        return
-    elif not preco.replace('.', '').isdigit():
-        print("------------------------------")
-        print("⚠️ Preço inválido. O preço deve ser numérico ⚠️")
-        print("------------------------------")
-        return
-    preco = float(preco)
-    if preco <= 0:
-        print("------------------------------")
-        print("⚠️ Preço inválido. Ele não pode ser menor ou igual a 0 ⚠️")
-        print("------------------------------")
-        return
-    estoque = int(input("Digite o estoque do produto que deseja cadastrar: ").strip())
-    novo_produto = {
-        "id": id,
-        "nome": nome,
-        "categoria": categoria,
-        "preço": preco,
-        "estoque": estoque
-    }
-    produtos.append(novo_produto)
-    ids.append(id)
-    print("------------------------------")
-    print("✅ Produto cadastrado! ✅")
+        print("✅ Produto cadastrado! ✅")
+        break
     
 #A seguir, vamos fazer o READ
 def listar_produtos():
     print("\n========== PRODUTOS ==========")
+
     # Antes de percorrer a lista, verificamos se ela está vazia.
     # len() retorna a quantidade de elementos.
-    
     if len(produtos) == 0:
         print("⚠️ Nenhum produto cadastrado. ⚠️")
     else:
-    # enumerate() permite obter:
-    # indice -> posição do elemento
-    # produto -> valor armazenado
-    
-        for indice, produto in enumerate(produtos):
-            print(indice,"-",produto)
+        #Para cada item na lista produtos, ele vai buscar os itens com as mesmas chaves dentro dos colchetes e vai mostrar seu valor, sendo perfeito para listar
+        for produto in produtos:
+            print(f"ID: {produto["id"]}|Nome: {produto["nome"]}|Categoria: {produto["categoria"]}|Preço: R${produto["preço"]:.2f}|Estoque: {produto["estoque"]} unidade(s)")
 
 def buscar_produto():
     print("\n========== BUSCA ==========")
-    # Solicita o produto que será pesquisado.
-    produto_busca = input("Digite o produto que deseja buscar: ").strip()
-        # O operador "in" verifica se o produto existe dentro da lista.
-    if produto_busca in produtos:
-        # index() retorna a posição do elemento
-        # dentro da lista.
-        indice = produtos.index(produto_busca)
-        print("Produto encontrado!")
-    
-        print("Produto:",produto_busca)
-    
-        print("Posição:",indice)
-
+    if len(produtos) == 0:
+        print("⚠️ Nenhum produto cadastrado. ⚠️")
     else:
-        print("⚠️ Produto não encontrado. ⚠️")
+        try:
+            # Solicita o produto que será pesquisado por ID.
+            produto_busca = int(input("Digite o ID do produto que deseja buscar:\n-> ").strip().replace("-",""))
+            if produto_busca not in ids:
+                print("------------------------------")
+                print(f"⚠️ ID inválido, tente um desses: {ids} ⚠️")
+                return
+            for produto in produtos:
+                if produto_busca == produto["id"]:
+                    print("------------------------------")
+                    print("✅ Produto encontrado, exibindo: ✅")
+                    print("------------------------------")
+                    print(f"Nome: {produto["nome"]}|Categoria: {produto["categoria"]}|Preço: R${produto["preço"]:.2f}|Estoque: {produto["estoque"]} unidade(s)")
+        except ValueError:
+            print("------------------------------")
+            print("⚠️ ID inválido, use um valor numérico ⚠️")
 
 #Agora, vamos fazer o Update, Atualiza um produto existente.
 def alterar_produto():
     print("\n========== ATUALIZAÇÃO ==========")
     # Solicita o produto que será alterado.
-    
-    produto_atual = input("Digite o produto que deseja alterar: ").strip()
-    
-    # Primeiro verificamos se o produto existe.
-    
-    if produto_atual in produtos:
-    # Descobrimos a posição do produto.
-    
-        indice = produtos.index(produto_atual)
-        # Solicita o novo nome.
-        
-        novo_produto = input("Digite o novo nome do produto: ").strip()
-        # Verifica se o novo nome foi informado.
-        
-        if novo_produto == "":
-    
-            print("⚠️ Erro: o novo nome não pode ser vazio. ⚠️")
-        else:
-        # Utilizamos o índice para substituir o valor existente.
-        # Antes:
-        # produtos[1] = "Mouse"
-        # Depois:
-        # produtos[1] = "Mouse sem fio"
-    
-            produtos[indice] = novo_produto
-            print("✅ Produto atualizado com sucesso! ✅")
-        
-    else:   
-        print("⚠️ Produto não encontrado. ⚠️")
+    if len(produtos) == 0:
+        print("⚠️ Nenhum produto cadastrado. ⚠️")
+    else:
+        try:
+            # Solicita o produto que será pesquisado por ID.
+            produto_att = int(input("Digite o ID do produto que deseja atualizar:\n-> ").strip().replace("-",""))
+            if produto_att not in ids:
+                print("------------------------------")
+                print(f"⚠️ ID inválido, tente um desses: {ids} ⚠️")
+                return
+            for i, produto in enumerate(produtos):
+                if produto_att == produto["id"]:
+                        while True:
+                            nome = input("Digite o novo nome do produto:\n-> ").strip().lower()
+                            if nome == "":
+                                print("------------------------------")
+                                print("⚠️ Nome não pode ser vazio ⚠️")
+                                continue
+                            
+                            categoria = input("Digite a nova categoria do produto:\n-> ").strip().lower()
+                            if categoria == "":
+                                print("------------------------------")
+                                print("⚠️ Categoria não pode ser vazio ⚠️")
+                                continue
+
+                            try:
+                                preco = float(input("Digite o novo preço do produto:\n-> ").strip().replace(",", "."))
+                                if preco <= 0:
+                                    print("------------------------------")
+                                    print("⚠️ Preço inválido. Ele não pode ser menor ou igual a 0 ⚠️")
+                                    continue
+                            except ValueError:
+                                print("------------------------------")
+                                print("⚠️ Preço inválido. O preço deve ser numérico ⚠️")
+                                continue
+
+                            try:
+                                estoque = int(input("Digite o novo estoque do produto:\n-> ").strip())
+                                if estoque < 0:
+                                    print("------------------------------")
+                                    print("⚠️ Estoque inválido. Ele não pode ser menor que 0 ⚠️")
+                                    continue
+                            except ValueError:
+                                print("------------------------------")
+                                print("⚠️ Estoque tem que ser um valor numérico inteiro ⚠️")
+                                continue
+
+                            novo_produto = {
+                                "id": produto_att,
+                                "nome": nome,
+                                "categoria": categoria,
+                                "preço": preco,
+                                "estoque": estoque
+                            }
+
+                            produtos[i] = novo_produto
+
+                            print("------------------------------")
+                            print("✅ Produto atualizado! ✅")
+                            break
+        except ValueError:
+            print("------------------------------")
+            print("⚠️ ID inválido, use um valor numérico ⚠️")
 
 def deletar_produto():
     print("\n========== EXCLUSÃO ==========")
     # Solicita o produto que será excluído.
-    
-    produto_excluir = input("Digite o produto que deseja excluir: ").strip()
-    # Verificamos se o produto existe.
-    
-    if produto_excluir in produtos:
-    
-        # remove() procura o elemento e o exclui, da lista.
-    
-        produtos.remove(produto_excluir)
-    
-        print("Produto excluído com sucesso!")
+    if len(produtos) == 0:
+        print("⚠️ Nenhum produto cadastrado. ⚠️")
     else:
-        print("Produto não encontrado.")
+        try:
+            produto_excluir = int(input("Digite o ID do produto que deseja excluir:\n-> ").strip())
+            # Verificamos se o produto existe.
+            if produto_excluir not in ids:
+                print("------------------------------")
+                print(f"⚠️ ID inválido, tente um desses: {ids} ⚠️")
+                return
+            for produto in produtos:
+                if produto_excluir == produto["id"]:
+                    # remove() procura o elemento e o exclui, da lista.
+                    produtos.remove(produto)
+                    print("✅ Produto excluído com sucesso! ✅")
+        except ValueError:
+            print("------------------------------")
+            print("⚠️ ID inválido, use um valor numérico ⚠️")
 
 
 #Vamos fazer a função que vai fazer o menu
@@ -161,7 +211,7 @@ def menu():
         print("5 - Excluir produto")
         print("6 - Sair")
         print("------------------------------")
-        op = input("Digite uma opção numérica do menu: ").strip()
+        op = input("Digite uma opção numérica do menu:\n-> ").strip()
         match (op):
             case "1":
                 cadastrar_produto()
