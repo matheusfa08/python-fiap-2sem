@@ -8,4 +8,5 @@
 ## Neste sem. aprendemos:
 - Tuplas
 - Dicionários
+- CRUD em listas
 - ... e muito mais
