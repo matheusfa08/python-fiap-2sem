@@ -148,7 +148,7 @@ def exibir_analises_financeiras():
 #Criada a função buscar_pedidos()
 def buscar_pedidos():
 
-    #Repetição que só acaba caso teha aluma opção que tenha 'break' ou a variável se torne falsa
+    #Repetição que só acaba caso teha aluma opção que tenha 'break'
     while True:
 
         #Variável que recebe um valor string
