@@ -8,7 +8,7 @@ url = "https://jsonplaceholder.typicode.com/users"
 try:
 
     #get() vai pegar as informações, da API, como indicado pela 'url', e jogar na variável resposta. 'timeout' vai definir um limite de tantos segundos para pegar
-    resposta = requests.get(url, timeout=0.1)
+    resposta = requests.get(url, timeout=10)
 
     #raise_for_status trás
     resposta.raise_for_status()
