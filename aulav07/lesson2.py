@@ -166,6 +166,46 @@ def consultar_pet():
     except oracledb.Error as erro:
         print("\nErro ao consultar os PETs:")
         print(erro)
+        conn.rollback
+
+# =========================================================================
+# UPDATE NO PYTHON - UPDATE NO PYTHON - UPDATE NO PYTHON - UPDATE NO PYTHON
+# =========================================================================
+
+def alterar_pet():
+    # Alteração de PETs numa tabela chamada "petshop"
+    print("\n==================================================")
+    print("                   Alterar PET                    ")
+    print("==================================================")
+    id_pet = input("Digite o ID do PET que deseja alterar")
+    # Comando SQL
+    sql = """
+        select
+            id_pet,
+            tipo_pet,
+            nome_pet,
+            idade
+        from petshop
+        where id_pet = :id_pet
+    """
+    try:
+        # Executando o "Select"
+        cursor.execute(sql) # Dessa vez, só é necessário o comando, pois não temos nenhuma condição
+        pets = cursor.fetchone() # Joga todos os dados do cursor na lista pets, que tem uma lista de infos
+        if len(pets) == 0: # Caso a lista tenha 0 itens visiveis pelo index, ele dá uma mensagem erro
+            print("\nNenhum pet cadastrado")
+        else: # Caso a lista tenha algo
+            for pet in pets: # Para cada lista dentro da lista, ele vai pegar o index de cada item nela
+                print("\n-----------------------------")
+                print(f"ID:     {pet[0]}")
+                print(f"Tipo:   {pet[1]}")
+                print(f"Nome:   {pet[2]}")
+                print(f"Idade:  {pet[3]}")
+                print("-----------------------------")
+    # Tratativa de erro
+    except oracledb.Error as erro:
+        print("\nErro ao alterar os PETs:")
+        print(erro)
 
 def menu():
     while True:
