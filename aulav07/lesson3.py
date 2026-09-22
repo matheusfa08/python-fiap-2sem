@@ -2,6 +2,7 @@
 # CÓDIGO DA LESSON2.PY COMPLETO
 # =============================
 
+import json
 import oracledb
 USUARIO = "rm570933"
 SENHA = "200308"
@@ -258,6 +259,51 @@ def excluir_pet():
         print("\nErro ao excluir o pet:")
         print(erro)
         conn.rollback()
+
+# ============================================================
+# Exportando o DB como um JSON
+# ============================================================
+
+def exportar_json():
+    print("\n========================================")
+    print("          EXPORTAÇÃO PARA JSON")
+    print("========================================")
+    sql = """
+        SELECT
+            id_pet,
+            tipo_pet,
+            nome_pet,
+            idade
+        FROM petshop
+        ORDER BY id_pet
+    """
+    try:
+        cursor.execute(sql)
+        pets = cursor.fetchall()
+        if len(pets) == 0:
+            print("\nNenhum pet cadastrado para exportar.")
+            return
+        lista_pets = []
+        for pet in pets:
+            dados_pet = {
+                "id_pet": pet[0],
+                "tipo_pet": pet[1],
+                "nome_pet": pet[2],
+                "idade": pet[3]
+            }
+            lista_pets.append(dados_pet)
+        with open("pets.json","w",encoding="utf-8") as arquivo:
+            json.dump(lista_pets,arquivo,ensure_ascii=False,indent=4)
+        print("\nDados exportados com sucesso!")
+        print("Arquivo gerado: pets.json")
+        print(f"Quantidade de pets exportados: {len(lista_pets)}")
+    except oracledb.Error as erro:
+        print("\nErro ao consultar os pets:")
+        print(erro)
+    except OSError as erro:
+        print("\nErro ao criar o arquivo JSON:")
+        print(erro)
+
 # ============================================================
 # MENU PRINCIPAL
 # ============================================================
@@ -270,6 +316,7 @@ while True:
     print("3 - Consultar Pet por ID")
     print("4 - Alterar Pet")
     print("5 - Excluir Pet")
+    print("6 - Exportar como JSON")
     print("0 - Sair")
     print("========================================")
     opcao = input("Digite uma opção: ")
@@ -283,6 +330,8 @@ while True:
         alterar_pet()
     elif opcao == "5":
         excluir_pet()
+    elif opcao == "6":
+        exportar_json()
     elif opcao == "0":
         print("\nEncerrando o sistema...")
         break

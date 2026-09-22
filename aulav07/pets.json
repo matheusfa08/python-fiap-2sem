@@ -1,0 +1,14 @@
+[
+    {
+        "id_pet": 1,
+        "tipo_pet": "cachorro",
+        "nome_pet": "kleber",
+        "idade": 4
+    },
+    {
+        "id_pet": 2,
+        "tipo_pet": "gato",
+        "nome_pet": "juliana",
+        "idade": 6
+    }
+]
