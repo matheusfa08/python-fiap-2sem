@@ -305,6 +305,102 @@ def exportar_json():
         print(erro)
 
 # ============================================================
+# Exportando o DB como um HTML
+# ============================================================
+
+def exportar_html():
+ 
+    print("\n========================================")
+    print("          EXPORTAÇÃO PARA HTML")
+    print("========================================")
+ 
+    sql = """
+        SELECT
+            id_pet,
+            tipo_pet,
+            nome_pet,
+            idade
+        FROM petshop
+        ORDER BY id_pet
+    """
+ 
+    try:
+ 
+        cursor.execute(sql)
+ 
+        pets = cursor.fetchall()
+ 
+        if len(pets) == 0:
+            print("\nNenhum pet cadastrado para exportar.")
+            return
+ 
+        html = """
+<!DOCTYPE html>
+<html lang="pt-BR">
+ 
+        <head>
+ 
+            <meta charset="UTF-8">
+ 
+            <title>Lista de Pets</title>
+ 
+        </head>
+ 
+        <body>
+ 
+            <h1>Pets Cadastrados</h1>
+ 
+            <table border="1">
+ 
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                </tr>
+        """
+ 
+        for pet in pets:
+ 
+            html += f"""
+                <tr>
+                    <td>{pet[0]}</td>
+                    <td>{pet[1]}</td>
+                    <td>{pet[2]}</td>
+                    <td>{pet[3]}</td>
+                </tr>
+            """
+ 
+        html += """
+            </table>
+ 
+        </body>
+ 
+</html>
+        """
+ 
+        with open(
+            "pets.html",
+            "w",
+            encoding="utf-8"
+        ) as arquivo:
+ 
+            arquivo.write(html)
+ 
+        print("\nArquivo HTML gerado com sucesso!")
+        print("Arquivo criado: pets.html")
+ 
+    except oracledb.Error as erro:
+ 
+        print("\nErro ao consultar os pets:")
+        print(erro)
+ 
+    except OSError as erro:
+ 
+        print("\nErro ao criar o arquivo HTML:")
+        print(erro)
+
+# ============================================================
 # MENU PRINCIPAL
 # ============================================================
 while True:
@@ -317,6 +413,7 @@ while True:
     print("4 - Alterar Pet")
     print("5 - Excluir Pet")
     print("6 - Exportar como JSON")
+    print("7 - Exportar como HTML")
     print("0 - Sair")
     print("========================================")
     opcao = input("Digite uma opção: ")
@@ -332,6 +429,8 @@ while True:
         excluir_pet()
     elif opcao == "6":
         exportar_json()
+    elif opcao == "7":
+        exportar_html()
     elif opcao == "0":
         print("\nEncerrando o sistema...")
         break
