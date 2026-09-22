@@ -50,20 +50,29 @@ def incluir_pet():
     tipo_pet = input("Digite o tipo do pet: ")
     nome_pet = input("Digite o nome do pet: ")
     idade = int(input("Digite a idade do pet: "))
+    nome_tutor = input("Digite o nome do tutor: ")
+    celular = int(input("Digite o celular do tutor: "))
+    email = input("Digite o email do tutor: ")
     sql = """
         INSERT INTO petshop
         (
             id_pet,
             tipo_pet,
             nome_pet,
-            idade
+            idade,
+            nome_tutor,
+            celular,
+            email
         )
         VALUES
         (
             :id_pet,
             :tipo_pet,
             :nome_pet,
-            :idade
+            :idade,
+            :nome_tutor,
+            :celular,
+            :email
         )
     """
     try:
@@ -72,7 +81,10 @@ def incluir_pet():
             id_pet = id_pet,
             tipo_pet=tipo_pet,
             nome_pet=nome_pet,
-            idade=idade
+            idade=idade,
+            nome_tutor=nome_tutor,
+            celular=celular,
+            email=email
         )
         conn.commit()
         print("\nPet cadastrado com sucesso!")
@@ -92,7 +104,10 @@ def consultar_pets():
             id_pet,
             tipo_pet,
             nome_pet,
-            idade
+            idade,
+            nome_tutor,
+            celular,
+            email
         FROM petshop
         ORDER BY id_pet
     """
@@ -104,10 +119,13 @@ def consultar_pets():
         else:
             for pet in pets:
                 print("\n----------------------------------------")
-                print(f"ID:       {pet[0]}")
-                print(f"Tipo:     {pet[1]}")
-                print(f"Nome:     {pet[2]}")
-                print(f"Idade:    {pet[3]}")
+                print(f"ID:             {pet[0]}")
+                print(f"Tipo:           {pet[1]}")
+                print(f"Nome:           {pet[2]}")
+                print(f"Idade:          {pet[3]}")
+                print(f"Tutor:          {pet[4]}")
+                print(f"Celular:        {pet[5]}")
+                print(f"Email:          {pet[6]}")
                 print("----------------------------------------")
     except oracledb.Error as erro:
         print("\nErro ao consultar os pets:")
@@ -122,7 +140,10 @@ def consultar_pet():
             id_pet,
             tipo_pet,
             nome_pet,
-            idade
+            idade,
+            nome_tutor,
+            celular,
+            email
         FROM petshop
         WHERE id_pet = :id_pet
     """
@@ -137,10 +158,13 @@ def consultar_pet():
         else:
             print("\nPet encontrado!")
             print("----------------------------------------")
-            print(f"ID:       {pet[0]}")
-            print(f"Tipo:     {pet[1]}")
-            print(f"Nome:     {pet[2]}")
-            print(f"Idade:    {pet[3]}")
+            print(f"ID:             {pet[0]}")
+            print(f"Tipo:           {pet[1]}")
+            print(f"Nome:           {pet[2]}")
+            print(f"Idade:          {pet[3]}")
+            print(f"Tutor:          {pet[4]}")
+            print(f"Celular:        {pet[5]}")
+            print(f"Email:          {pet[6]}")
             print("----------------------------------------")
     except oracledb.Error as erro:
         print("\nErro ao consultar o pet:")
@@ -162,7 +186,10 @@ def alterar_pet():
             id_pet,
             tipo_pet,
             nome_pet,
-            idade
+            idade,
+            nome_tutor,
+            celular,
+            email
         FROM petshop
         WHERE id_pet = :id_pet
     """
@@ -177,20 +204,29 @@ def alterar_pet():
             return
         print("\nDados atuais:")
         print("----------------------------------------")
-        print(f"ID:       {pet[0]}")
-        print(f"Tipo:     {pet[1]}")
-        print(f"Nome:     {pet[2]}")
-        print(f"Idade:    {pet[3]}")
+        print(f"ID:             {pet[0]}")
+        print(f"Tipo:           {pet[1]}")
+        print(f"Nome:           {pet[2]}")
+        print(f"Idade:          {pet[3]}")
+        print(f"Tutor:          {pet[4]}")
+        print(f"Celular:        {pet[5]}")
+        print(f"Email:          {pet[6]}")
         print("----------------------------------------")
         tipo_pet = input("Digite o novo tipo do pet: ")
         nome_pet = input("Digite o novo nome do pet: ")
-        idade = int(input("Digite a nova idade do pet: "))
+        idade = int(input("Digite a idade do pet: "))
+        nome_tutor = input("Digite o nome do tutor: ")
+        celular = int(input("Digite o celular do tutor: "))
+        email = input("Digite o email do tutor: ")
         sql = """
             UPDATE petshop
             SET
                 tipo_pet = :tipo_pet,
                 nome_pet = :nome_pet,
-                idade = :idade
+                idade = :idade,
+                nome_tutor = :nome_tutor,
+                celular = :celular,
+                email = :email
             WHERE id_pet = :id_pet
         """
         cursor.execute(
@@ -198,6 +234,9 @@ def alterar_pet():
             tipo_pet=tipo_pet,
             nome_pet=nome_pet,
             idade=idade,
+            nome_tutor=nome_tutor,
+            celular=celular,
+            email=email,
             id_pet=id_pet
         )
         conn.commit()
@@ -221,7 +260,10 @@ def excluir_pet():
             id_pet,
             tipo_pet,
             nome_pet,
-            idade
+            idade,
+            nome_tutor,
+            celular,
+            email
         FROM petshop
         WHERE id_pet = :id_pet
     """
@@ -236,10 +278,13 @@ def excluir_pet():
             return
         print("\nPet encontrado:")
         print("----------------------------------------")
-        print(f"ID:       {pet[0]}")
-        print(f"Tipo:     {pet[1]}")
-        print(f"Nome:     {pet[2]}")
-        print(f"Idade:    {pet[3]}")
+        print(f"ID:             {pet[0]}")
+        print(f"Tipo:           {pet[1]}")
+        print(f"Nome:           {pet[2]}")
+        print(f"Idade:          {pet[3]}")
+        print(f"Tutor:          {pet[4]}")
+        print(f"Celular:        {pet[5]}")
+        print(f"Email:          {pet[6]}")
         print("----------------------------------------")
         confirmacao = input("Deseja realmente excluir este pet? (S/N): ")
         if confirmacao.upper() == "S":
@@ -273,7 +318,10 @@ def exportar_json():
             id_pet,
             tipo_pet,
             nome_pet,
-            idade
+            idade,
+            nome_tutor,
+            celular,
+            email
         FROM petshop
         ORDER BY id_pet
     """
@@ -289,7 +337,10 @@ def exportar_json():
                 "id_pet": pet[0],
                 "tipo_pet": pet[1],
                 "nome_pet": pet[2],
-                "idade": pet[3]
+                "idade": pet[3],
+                "nome_tutor": pet[4],
+                "celular": pet[5],
+                "email": pet[6],
             }
             lista_pets.append(dados_pet)
         with open("pets.json","w",encoding="utf-8") as arquivo:
@@ -319,7 +370,10 @@ def exportar_html():
             id_pet,
             tipo_pet,
             nome_pet,
-            idade
+            idade,
+            nome_tutor,
+            celular,
+            email
         FROM petshop
         ORDER BY id_pet
     """
@@ -357,6 +411,9 @@ def exportar_html():
                     <th>Tipo</th>
                     <th>Nome</th>
                     <th>Idade</th>
+                    <th>Tutor</th>
+                    <th>Celular</th>
+                    <th>Email</th>
                 </tr>
         """
  
@@ -368,6 +425,9 @@ def exportar_html():
                     <td>{pet[1]}</td>
                     <td>{pet[2]}</td>
                     <td>{pet[3]}</td>
+                    <td>{pet[4]}</td>
+                    <td>{pet[5]}</td>
+                    <td>{pet[6]}</td>
                 </tr>
             """
  

@@ -2,13 +2,28 @@
     {
         "id_pet": 1,
         "tipo_pet": "cachorro",
-        "nome_pet": "kleber",
-        "idade": 4
+        "nome_pet": "cleber",
+        "idade": 4,
+        "nome_tutor": "matheus",
+        "celular": 999999999,
+        "email": "matheus@gmail.com"
     },
     {
         "id_pet": 2,
         "tipo_pet": "gato",
         "nome_pet": "juliana",
-        "idade": 6
+        "idade": 6,
+        "nome_tutor": "clara",
+        "celular": 888888888,
+        "email": "clara@gmail.com"
+    },
+    {
+        "id_pet": 3,
+        "tipo_pet": "hamster",
+        "nome_pet": "darwin",
+        "idade": 1,
+        "nome_tutor": "franky",
+        "celular": 777777777,
+        "email": "franky@gmail.com"
     }
 ]
