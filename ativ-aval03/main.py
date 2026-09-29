@@ -3,7 +3,9 @@
 # =============================================================
 
 from flask import Flask, request, redirect, url_for, render_template_string
+from html import escape
 import oracledb
+import datetime
 
 # ==========================================
 # Colocando os dados para acessar o DataBase
@@ -248,7 +250,7 @@ def cadastrar_pet():
     sucesso, erro = executar_alteracao(sql, parametros)
  
     if sucesso:
-        print("Pet cadastrado com sucesso! ID gerado:", id_pet)
+        print("Pet cadastrado com sucesso!")
     elif "ORA-00001" in str(erro):
         print("Erro: o ID gerado já foi usado por outro cadastro. Tente novamente.")
     else:
@@ -436,7 +438,7 @@ def gerar_html():
         print("Relatório não gerado.")
         return
  
-    agora = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    agora = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
  
     if len(pets) == 0:
         conteudo = "<p class=\"vazio\">Nenhum pet cadastrado.</p>"
@@ -533,7 +535,9 @@ def gerar_html():
 </body>
 </html>
 """
- 
+    
+    ARQUIVO_HTML = "relatório_pets.html"
+    
     try:
         with open(ARQUIVO_HTML, "w", encoding="utf-8") as arquivo:
             arquivo.write(html)
