@@ -2,7 +2,6 @@
 # Importando as bibliotecas que são necessárias para o programa
 # =============================================================
 
-from flask import Flask, request, redirect, url_for, render_template_string
 from html import escape
 import oracledb
 import datetime
